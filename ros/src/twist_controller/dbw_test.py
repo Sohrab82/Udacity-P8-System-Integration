@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import csv
@@ -29,11 +29,14 @@ class DBWTestNode(object):
         rospy.init_node('dbw_test_node')
 
         rospy.Subscriber('/vehicle/steering_cmd', SteeringCmd, self.steer_cb)
-        rospy.Subscriber('/vehicle/throttle_cmd', ThrottleCmd, self.throttle_cb)
+        rospy.Subscriber('/vehicle/throttle_cmd',
+                         ThrottleCmd, self.throttle_cb)
         rospy.Subscriber('/vehicle/brake_cmd', BrakeCmd, self.brake_cb)
 
-        rospy.Subscriber('/actual/steering_cmd', SteeringCmd, self.actual_steer_cb)
-        rospy.Subscriber('/actual/throttle_cmd', ThrottleCmd, self.actual_throttle_cb)
+        rospy.Subscriber('/actual/steering_cmd',
+                         SteeringCmd, self.actual_steer_cb)
+        rospy.Subscriber('/actual/throttle_cmd', ThrottleCmd,
+                         self.actual_throttle_cb)
         rospy.Subscriber('/actual/brake_cmd', BrakeCmd, self.actual_brake_cb)
 
         rospy.Subscriber('/vehicle/dbw_enabled', Bool, self.dbw_enabled_cb)
@@ -54,7 +57,7 @@ class DBWTestNode(object):
         self.loop()
 
     def loop(self):
-        rate = rospy.Rate(10) # 10Hz
+        rate = rospy.Rate(10)  # 10Hz
         while not rospy.is_shutdown():
             rate.sleep()
         fieldnames = ['actual', 'proposed']

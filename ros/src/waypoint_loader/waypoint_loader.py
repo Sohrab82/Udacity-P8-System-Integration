@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import csv
@@ -20,7 +20,8 @@ class WaypointLoader(object):
     def __init__(self):
         rospy.init_node('waypoint_loader', log_level=rospy.DEBUG)
 
-        self.pub = rospy.Publisher('/base_waypoints', Lane, queue_size=1, latch=True)
+        self.pub = rospy.Publisher(
+            '/base_waypoints', Lane, queue_size=1, latch=True)
 
         self.velocity = self.kmph2mps(rospy.get_param('~velocity'))
         self.new_waypoint_loader(rospy.get_param('~path'))
@@ -58,13 +59,14 @@ class WaypointLoader(object):
 
     def distance(self, p1, p2):
         x, y, z = p1.x - p2.x, p1.y - p2.y, p1.z - p2.z
-        return math.sqrt(x*x + y*y + z*z)
+        return math.sqrt(x * x + y * y + z * z)
 
     def decelerate(self, waypoints):
         last = waypoints[-1]
         last.twist.twist.linear.x = 0.
         for wp in waypoints[:-1][::-1]:
-            dist = self.distance(wp.pose.pose.position, last.pose.pose.position)
+            dist = self.distance(wp.pose.pose.position,
+                                 last.pose.pose.position)
             vel = math.sqrt(2 * MAX_DECEL * dist)
             if vel < 1.:
                 vel = 0.

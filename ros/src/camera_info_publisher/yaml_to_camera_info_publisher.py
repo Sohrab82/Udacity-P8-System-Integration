@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 """
 Thanks to Github user @rossbar for writing this script
@@ -19,6 +19,7 @@ This file just extends that parser into a rosnode.
 import rospy
 import yaml
 from sensor_msgs.msg import CameraInfo
+
 
 def yaml_to_CameraInfo(calib_yaml):
     """
@@ -49,6 +50,7 @@ def yaml_to_CameraInfo(calib_yaml):
     camera_info_msg.P = calib_data["projection_matrix"]["data"]
     camera_info_msg.distortion_model = calib_data["distortion_model"]
     return camera_info_msg
+
 
 if __name__ == "__main__":
 
